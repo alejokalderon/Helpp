@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,7 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         mensaje1 = (TextView) findViewById(R.id.coordenadas);
+        mensaje1.setMovementMethod(LinkMovementMethod.getInstance());
         mensaje2 = (TextView) findViewById(R.id.direccion);
+        mensaje2.setMovementMethod(LinkMovementMethod.getInstance());
 
         //Este es el ID del botón
         boton = (Button) findViewById(R.id.boton);
@@ -120,19 +123,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.boton:
-                sendSMS();
-                //  Toast.makeText(getApplicationContext(), "Holi", Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                break;
-        }
-
-    }
-
     public class Localizacion implements LocationListener {
         MainActivity mainActivity;
 
@@ -152,8 +142,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             loc.getLatitude();
             loc.getLongitude();
 
-            String Text = "Mi ubicacion actual es: " + "\n Lat = "
-                    + loc.getLatitude() + "\n Long = " + loc.getLongitude();
+            String Text = "Estoy en problemas, mi ubicacion actual es: " + "\n http://maps.google.com/maps?q="
+                    + loc.getLatitude() + "," + loc.getLongitude();
             mensaje1.setText(Text);
             this.mainActivity.setLocation(loc);
         }
@@ -185,6 +175,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.boton:
+                sendSMS();
+                //  Toast.makeText(getApplicationContext(), "Holi", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+
+    }
+
+
 
     private void sendSMS() {
         String message=mensaje1.getText().toString();
