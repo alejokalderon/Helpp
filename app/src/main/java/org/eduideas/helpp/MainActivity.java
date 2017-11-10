@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String message=mensaje1.getText().toString();
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage("+573148894999", null,message, null, null);
-        Toast.makeText(getApplicationContext(), "SMS sent.",
+        Toast.makeText(getApplicationContext(), "Mensaje enviado.",
         Toast.LENGTH_LONG).show();
     }
 
