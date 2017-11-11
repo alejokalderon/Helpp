@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener) Local);
         mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) Local);
 
-        mensaje1.setText("Localizacion agregada");
+        mensaje1.setText("Ubicación actualizada");
         mensaje2.setText("");
     }
 
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         loc.getLatitude(), loc.getLongitude(), 1);
                 if (!list.isEmpty()) {
                     Address DirCalle = list.get(0);
-                    mensaje2.setText("Mi direccion es: \n"
+                    mensaje2.setText("Mi dirección es: \n"
                             + DirCalle.getAddressLine(0));
                 }
 
@@ -190,11 +190,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     private void sendSMS() {
-        String message=mensaje1.getText().toString();
+        String mensaje=mensaje1.getText().toString();
+        String direccion=mensaje2.getText().toString();
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage("+573148894999", null,message, null, null);
+        smsManager.sendTextMessage("+573148894999", null,(mensaje + " " + direccion), null, null);
         Toast.makeText(getApplicationContext(), "Mensaje enviado.",
         Toast.LENGTH_LONG).show();
     }
