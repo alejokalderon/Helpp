@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         loc.getLatitude(), loc.getLongitude(), 1);
                 if (!list.isEmpty()) {
                     Address DirCalle = list.get(0);
-                    mensaje2.setText("Mi dirección es: \n"
+                    mensaje2.setText(" "
                             + DirCalle.getAddressLine(0));
                 }
 
@@ -189,12 +189,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
     private void sendSMS() {
-        String mensaje=mensaje1.getText().toString();
-        String direccion=mensaje2.getText().toString();
+        String smsubicacion=mensaje1.getText().toString();
+        String smsdireccion=mensaje2.getText().toString();
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage("+573148894999", null,(mensaje + " " + direccion), null, null);
+        smsManager.sendTextMessage("+573148894999", null,(smsubicacion+smsdireccion), null, null);
         Toast.makeText(getApplicationContext(), "Mensaje enviado.",
         Toast.LENGTH_LONG).show();
     }
