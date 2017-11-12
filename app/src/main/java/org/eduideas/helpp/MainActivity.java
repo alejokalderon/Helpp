@@ -190,10 +190,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void sendSMS() {
-        String smsubicacion=mensaje1.getText().toString();
-        String smsdireccion=mensaje2.getText().toString();
+        String smsfinal=mensaje1.getText().toString()+" "+mensaje2.getText().toString();
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage("+573148894999", null,(smsubicacion+smsdireccion), null, null);
+        smsManager.sendTextMessage("+573148894999", null,(smsfinal), null, null);
         Toast.makeText(getApplicationContext(), "Mensaje enviado.",
         Toast.LENGTH_LONG).show();
     }
