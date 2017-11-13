@@ -3,6 +3,7 @@ package org.eduideas.helpp;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -36,16 +37,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView mensaje1;
     TextView mensaje2;
     Button boton;
+    SharedPreferences alejoPref;
+    SharedPreferences.Editor editor;
+
 
 
     public static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 99;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        alejoPref = getApplicationContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        editor = alejoPref.edit();
 
         tvContactName = (TextView) findViewById(R.id.tvContactName);
         tvContactNumber = (TextView) findViewById(R.id.tvContactNumber);
+        tvContactNumber.setText(alejoPref.getString("phone", null));
+        tvContactName.setText(alejoPref.getString("name", null));
         mensaje1 = (TextView) findViewById(R.id.coordenadas);
         mensaje1.setMovementMethod(LinkMovementMethod.getInstance());
         mensaje2 = (TextView) findViewById(R.id.direccion);
@@ -241,8 +251,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         contactNumber = cursor.getString(phoneIndex);
                         contactName = cursor.getString(nameIndex);
 // Set the value to the textviews
-                        tvContactName.setText("".concat(contactName));
-                        tvContactNumber.setText("".concat(contactNumber));
+                        editor.putString("phone", contactNumber); // Storing string
+                        editor.putString("name", contactName); // Storing string
+                        editor.commit();
+                     //   tvContactName.setText("".concat(contactName));
+                      //  tvContactNumber.setText("".concat(contactNumber));
+                        tvContactNumber.setText(alejoPref.getString("phone", null));
+                        tvContactName.setText(alejoPref.getString("name", null));
 
                     } catch (Exception e) {
                         e.printStackTrace();
