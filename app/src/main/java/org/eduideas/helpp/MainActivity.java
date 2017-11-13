@@ -32,12 +32,34 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final int RESULT_PICK_CONTACT = 1001;
-    TextView tvContactName, tvContactNumber;
+    private static final int llamarcontacto1 = 1001;
+    private static final int llamarcontacto2 = 1002;
+    private static final int llamarcontacto3 = 1003;
+    private static final int llamarcontacto4 = 1004;
+    private static final int llamarcontacto5 = 1005;
+
+
+    TextView nombrecontacto1, telefonocontacto1;
+    TextView nombrecontacto2, telefonocontacto2;
+    TextView nombrecontacto3, telefonocontacto3;
+    TextView nombrecontacto4, telefonocontacto4;
+    TextView nombrecontacto5, telefonocontacto5;
+
     TextView mensaje1;
     TextView mensaje2;
-    Button boton;
-    SharedPreferences alejoPref;
+    Button botonHelpp;
+    Button seleccionarcontacto1;
+    Button seleccionarcontacto2;
+    Button seleccionarcontacto3;
+    Button seleccionarcontacto4;
+    Button seleccionarcontacto5;
+    Button borrarcontacto1;
+    Button borrarcontacto2;
+    Button borrarcontacto3;
+    Button borrarcontacto4;
+    Button borrarcontacto5
+            ;
+    SharedPreferences basededatosPref;
     SharedPreferences.Editor editor;
 
 
@@ -49,22 +71,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        alejoPref = getApplicationContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        editor = alejoPref.edit();
+        basededatosPref = getApplicationContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        editor = basededatosPref.edit();
 
-        tvContactName = (TextView) findViewById(R.id.tvContactName);
-        tvContactNumber = (TextView) findViewById(R.id.tvContactNumber);
-        tvContactNumber.setText(alejoPref.getString("phone", null));
-        tvContactName.setText(alejoPref.getString("name", null));
+        nombrecontacto1 = (TextView) findViewById(R.id.nombrecontacto1);
+        telefonocontacto1 = (TextView) findViewById(R.id.telefonocontacto1);
+        telefonocontacto1.setText(basededatosPref.getString("dbtelefonocontacto1", null));
+        nombrecontacto1.setText(basededatosPref.getString("dbnombrecontacto1", null));
+        nombrecontacto2 = (TextView) findViewById(R.id.nombrecontacto2);
+        telefonocontacto2 = (TextView) findViewById(R.id.telefonocontacto2);
+        telefonocontacto2.setText(basededatosPref.getString("dbtelefonocontacto2", null));
+        nombrecontacto2.setText(basededatosPref.getString("dbnombrecontacto2", null));
+        nombrecontacto3 = (TextView) findViewById(R.id.nombrecontacto3);
+        telefonocontacto3 = (TextView) findViewById(R.id.telefonocontacto3);
+        telefonocontacto3.setText(basededatosPref.getString("dbtelefonocontacto3", null));
+        nombrecontacto3.setText(basededatosPref.getString("dbnombrecontacto3", null));
+        nombrecontacto4 = (TextView) findViewById(R.id.nombrecontacto4);
+        telefonocontacto4 = (TextView) findViewById(R.id.telefonocontacto4);
+        telefonocontacto4.setText(basededatosPref.getString("dbtelefonocontacto4", null));
+        nombrecontacto4.setText(basededatosPref.getString("dbnombrecontacto4", null));
+        nombrecontacto5 = (TextView) findViewById(R.id.nombrecontacto5);
+        telefonocontacto5 = (TextView) findViewById(R.id.telefonocontacto5);
+        telefonocontacto5.setText(basededatosPref.getString("dbtelefonocontacto5", null));
+        nombrecontacto5.setText(basededatosPref.getString("dbnombrecontacto5", null));
         mensaje1 = (TextView) findViewById(R.id.coordenadas);
         mensaje1.setMovementMethod(LinkMovementMethod.getInstance());
         mensaje2 = (TextView) findViewById(R.id.direccion);
         mensaje2.setMovementMethod(LinkMovementMethod.getInstance());
 
+
         //Este es el ID del botón
-        boton = (Button) findViewById(R.id.boton);
+        botonHelpp = (Button) findViewById(R.id.botonHelpp);
         //Este es el que permite que el botón ejecute
-        boton.setOnClickListener(this);
+        botonHelpp.setOnClickListener(this);
+
+        seleccionarcontacto1 = (Button) findViewById(R.id.seleccionarcontacto1);
+        seleccionarcontacto2 = (Button) findViewById(R.id.seleccionarcontacto2);
+        seleccionarcontacto3 = (Button) findViewById(R.id.seleccionarcontacto3);
+        seleccionarcontacto4 = (Button) findViewById(R.id.seleccionarcontacto4);
+        seleccionarcontacto5 = (Button) findViewById(R.id.seleccionarcontacto5);
+        borrarcontacto1 = (Button) findViewById(R.id.borrar1);
+        borrarcontacto2 = (Button) findViewById(R.id.borrar2);
+        borrarcontacto3 = (Button) findViewById(R.id.borrar3);
+        borrarcontacto4 = (Button) findViewById(R.id.borrar4);
+        borrarcontacto5 = (Button) findViewById(R.id.borrar5);
+
+
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS)
@@ -200,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.boton:
+            case R.id.botonHelpp:
                 sendSMS();
                 //  Toast.makeText(getApplicationContext(), "Holi", Toast.LENGTH_SHORT).show();
                 break;
@@ -212,59 +264,213 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void sendSMS() {
         String smsfinal=mensaje1.getText().toString()+" "+mensaje2.getText().toString();
-        String contactosms=tvContactNumber.getText().toString();
+        String contactosms=telefonocontacto2.getText().toString();
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(contactosms, null,(smsfinal), null, null);
         Toast.makeText(getApplicationContext(), "Mensaje enviado.",
         Toast.LENGTH_LONG).show();
     }
 
-    public void pickContact(View v) {
+    public void seleccionarcontacto1(View v) {
+         Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+            startActivityForResult(contactPickerIntent, llamarcontacto1);
+    }
+
+    public void seleccionarcontacto2(View v) {
 
         Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-        startActivityForResult(contactPickerIntent, RESULT_PICK_CONTACT);
+        startActivityForResult(contactPickerIntent, llamarcontacto2);
     }
+
+    public void seleccionarcontacto3(View v) {
+
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+        startActivityForResult(contactPickerIntent, llamarcontacto3);
+    }
+    public void seleccionarcontacto4(View v) {
+
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+        startActivityForResult(contactPickerIntent, llamarcontacto4);
+    }
+    public void seleccionarcontacto5(View v) {
+
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+        startActivityForResult(contactPickerIntent, llamarcontacto5);
+    }
+    public void borrarcontacto1(View v) {
+        editor.remove("dbtelefonocontacto1");
+        editor.remove("dbnombrecontacto1");
+        editor.commit();
+        nombrecontacto1.setText("");
+        telefonocontacto1.setText("");
+    }
+
+    public void borrarcontacto2(View v) {
+        editor.remove("dbtelefonocontacto2");
+        editor.remove("dbnombrecontacto2");
+        editor.commit();
+        nombrecontacto2.setText("");
+        telefonocontacto2.setText("");
+    }
+
+    public void borrarcontacto3(View v) {
+        editor.remove("dbtelefonocontacto3");
+        editor.remove("dbnombrecontacto3");
+        editor.commit();
+        nombrecontacto3.setText("");
+        telefonocontacto3.setText("");
+    }
+
+    public void borrarcontacto4(View v) {
+        editor.remove("dbtelefonocontacto4");
+        editor.remove("dbnombrecontacto4");
+        editor.commit();
+        nombrecontacto4.setText("");
+        telefonocontacto4.setText("");
+    }
+
+    public void borrarcontacto5(View v) {
+        editor.remove("dbtelefonocontacto5");
+        editor.remove("dbnombrecontacto5");
+        editor.commit();
+        nombrecontacto5.setText("");
+        telefonocontacto5.setText("");
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case RESULT_PICK_CONTACT:
+                case llamarcontacto1:
                     Cursor cursor = null;
                     try {
                         String contactNumber = null;
                         String contactName = null;
-// getData() method will have the
-// Content Uri of the selected contact
                         Uri uri = data.getData();
-//Query the content uri
                         cursor = getContentResolver().query(uri, null, null, null, null);
                         cursor.moveToFirst();
-// column index of the phone number
                         int phoneIndex = cursor.getColumnIndex(
                                 ContactsContract.CommonDataKinds.Phone.NUMBER);
-// column index of the contact name
                         int nameIndex = cursor.getColumnIndex(
                                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
                         contactNumber = cursor.getString(phoneIndex);
+                        contactNumber = contactNumber.replaceAll("[ )(-]","");
                         contactName = cursor.getString(nameIndex);
-// Set the value to the textviews
-                        editor.putString("phone", contactNumber); // Storing string
-                        editor.putString("name", contactName); // Storing string
+                        editor.putString("dbtelefonocontacto1", contactNumber); // Storing string
+                        editor.putString("dbnombrecontacto1", contactName); // Storing string
                         editor.commit();
-                     //   tvContactName.setText("".concat(contactName));
-                      //  tvContactNumber.setText("".concat(contactNumber));
-                        tvContactNumber.setText(alejoPref.getString("phone", null));
-                        tvContactName.setText(alejoPref.getString("name", null));
-
+                        telefonocontacto1.setText(basededatosPref.getString("dbtelefonocontacto1", null));
+                        nombrecontacto1.setText(basededatosPref.getString("dbnombrecontacto1", null));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
-            }
+                case llamarcontacto2:
+              //  Cursor cursor = null;
+                try {
+                    String contactNumber = null;
+                    String contactName = null;
+                    Uri uri = data.getData();
+                    cursor = getContentResolver().query(uri, null, null, null, null);
+                    cursor.moveToFirst();
+                    int phoneIndex = cursor.getColumnIndex(
+                            ContactsContract.CommonDataKinds.Phone.NUMBER);
+                    int nameIndex = cursor.getColumnIndex(
+                            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+                    contactNumber = cursor.getString(phoneIndex);
+                    contactNumber = contactNumber.replaceAll("[ )(-]","");
+                    contactName = cursor.getString(nameIndex);
+                    editor.putString("dbtelefonocontacto2", contactNumber); // Storing string
+                    editor.putString("dbnombrecontacto2", contactName); // Storing string
+                    editor.commit();
+                    telefonocontacto2.setText(basededatosPref.getString("dbtelefonocontacto2", null));
+                    nombrecontacto2.setText(basededatosPref.getString("dbnombrecontacto2", null));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+                case llamarcontacto3:
+                    //  Cursor cursor = null;
+                    try {
+                        String contactNumber = null;
+                        String contactName = null;
+                        Uri uri = data.getData();
+                        cursor = getContentResolver().query(uri, null, null, null, null);
+                        cursor.moveToFirst();
+                        int phoneIndex = cursor.getColumnIndex(
+                                ContactsContract.CommonDataKinds.Phone.NUMBER);
+                        int nameIndex = cursor.getColumnIndex(
+                                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+                        contactNumber = cursor.getString(phoneIndex);
+                        contactNumber = contactNumber.replaceAll("[ )(-]","");
+                        contactName = cursor.getString(nameIndex);
+                        editor.putString("dbtelefonocontacto3", contactNumber); // Storing string
+                        editor.putString("dbnombrecontacto3", contactName); // Storing string
+                        editor.commit();
+                        telefonocontacto3.setText(basededatosPref.getString("dbtelefonocontacto3", null));
+                        nombrecontacto3.setText(basededatosPref.getString("dbnombrecontacto3", null));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case llamarcontacto4:
+                    //  Cursor cursor = null;
+                    try {
+                        String contactNumber = null;
+                        String contactName = null;
+                        Uri uri = data.getData();
+                        cursor = getContentResolver().query(uri, null, null, null, null);
+                        cursor.moveToFirst();
+                        int phoneIndex = cursor.getColumnIndex(
+                                ContactsContract.CommonDataKinds.Phone.NUMBER);
+                        int nameIndex = cursor.getColumnIndex(
+                                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+                        contactNumber = cursor.getString(phoneIndex);
+                        contactNumber = contactNumber.replaceAll("[ )(-]","");
+                        contactName = cursor.getString(nameIndex);
+                        editor.putString("dbtelefonocontacto4", contactNumber); // Storing string
+                        editor.putString("dbnombrecontacto4", contactName); // Storing string
+                        editor.commit();
+                        telefonocontacto4.setText(basededatosPref.getString("dbtelefonocontacto4", null));
+                        nombrecontacto4.setText(basededatosPref.getString("dbnombrecontacto4", null));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case llamarcontacto5:
+                    //  Cursor cursor = null;
+                    try {
+                        String contactNumber = null;
+                        String contactName = null;
+                        Uri uri = data.getData();
+                        cursor = getContentResolver().query(uri, null, null, null, null);
+                        cursor.moveToFirst();
+                        int phoneIndex = cursor.getColumnIndex(
+                                ContactsContract.CommonDataKinds.Phone.NUMBER);
+                        int nameIndex = cursor.getColumnIndex(
+                                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+                        contactNumber = cursor.getString(phoneIndex);
+                        contactNumber = contactNumber.replaceAll("[ )(-]","");
+                        contactName = cursor.getString(nameIndex);
+                        editor.putString("dbtelefonocontacto5", contactNumber); // Storing string
+                        editor.putString("dbnombrecontacto5", contactName); // Storing string
+                        editor.commit();
+                        telefonocontacto5.setText(basededatosPref.getString("dbtelefonocontacto5", null));
+                        nombrecontacto5.setText(basededatosPref.getString("dbnombrecontacto5", null));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+        }
         }
     }
+
 }
 
