@@ -22,15 +22,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.ContactsContract;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final int RESULT_PICK_CONTACT = 1001;
+    TextView tvContactName, tvContactNumber;
     TextView mensaje1;
     TextView mensaje2;
     Button boton;
+
 
     public static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 99;
     @Override
@@ -38,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        tvContactName = (TextView) findViewById(R.id.tvContactName);
+        tvContactNumber = (TextView) findViewById(R.id.tvContactNumber);
         mensaje1 = (TextView) findViewById(R.id.coordenadas);
         mensaje1.setMovementMethod(LinkMovementMethod.getInstance());
         mensaje2 = (TextView) findViewById(R.id.direccion);
@@ -84,15 +92,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(settingsIntent);
         }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
             return;
         }
         mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener) Local);
         mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) Local);
 
-        mensaje1.setText("Ubicación actualizada");
-        mensaje2.setText("");
+        mensaje1.setText("Actualizando ubicación...");
+        mensaje2.setText(" ");
     }
 
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -191,10 +202,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void sendSMS() {
         String smsfinal=mensaje1.getText().toString()+" "+mensaje2.getText().toString();
+        String contactosms=tvContactNumber.getText().toString();
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage("+573148894999", null,(smsfinal), null, null);
+        smsManager.sendTextMessage(contactosms, null,(smsfinal), null, null);
         Toast.makeText(getApplicationContext(), "Mensaje enviado.",
         Toast.LENGTH_LONG).show();
     }
 
+    public void pickContact(View v) {
+
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+        startActivityForResult(contactPickerIntent, RESULT_PICK_CONTACT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case RESULT_PICK_CONTACT:
+                    Cursor cursor = null;
+                    try {
+                        String contactNumber = null;
+                        String contactName = null;
+// getData() method will have the
+// Content Uri of the selected contact
+                        Uri uri = data.getData();
+//Query the content uri
+                        cursor = getContentResolver().query(uri, null, null, null, null);
+                        cursor.moveToFirst();
+// column index of the phone number
+                        int phoneIndex = cursor.getColumnIndex(
+                                ContactsContract.CommonDataKinds.Phone.NUMBER);
+// column index of the contact name
+                        int nameIndex = cursor.getColumnIndex(
+                                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+                        contactNumber = cursor.getString(phoneIndex);
+                        contactName = cursor.getString(nameIndex);
+// Set the value to the textviews
+                        tvContactName.setText("".concat(contactName));
+                        tvContactNumber.setText("".concat(contactNumber));
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        }
+    }
 }
+
