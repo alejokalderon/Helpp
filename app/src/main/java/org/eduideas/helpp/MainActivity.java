@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void sendSMS() {
         String smsfinal=mensaje1.getText().toString()+" "+mensaje2.getText().toString();
-        String contactosms=telefonocontacto2.getText().toString();
+        String contactosms=telefonocontacto1.getText().toString();
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(contactosms, null,(smsfinal), null, null);
         Toast.makeText(getApplicationContext(), "Mensaje enviado.",
