@@ -2,6 +2,7 @@ package org.eduideas.helpp;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -14,18 +15,24 @@ import android.location.LocationProvider;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int llamarcontacto3 = 1003;
     private static final int llamarcontacto4 = 1004;
     private static final int llamarcontacto5 = 1005;
+    private CheckBox checkBox1;
+    final Context context = this;
+    private Button suscribirse;
+    private TextView numerodeserie;
 
 
     TextView nombrecontacto1, telefonocontacto1;
@@ -57,12 +68,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button borrarcontacto2;
     Button borrarcontacto3;
     Button borrarcontacto4;
-    Button borrarcontacto5
-            ;
+    Button borrarcontacto5;
     SharedPreferences basededatosPref;
     SharedPreferences.Editor editor;
-
-
 
     public static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 99;
     @Override
@@ -99,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mensaje2 = (TextView) findViewById(R.id.direccion);
         mensaje2.setMovementMethod(LinkMovementMethod.getInstance());
 
-
         //Este es el ID del botón
         botonHelpp = (Button) findViewById(R.id.botonHelpp);
         //Este es el que permite que el botón ejecute
@@ -116,6 +123,75 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         borrarcontacto4 = (Button) findViewById(R.id.borrar4);
         borrarcontacto5 = (Button) findViewById(R.id.borrar5);
 
+        checkBox1=(CheckBox)findViewById(R.id.checkBox1);
+        checkBox1.setEnabled(false);
+        checkBox1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (((CheckBox) v).isChecked())
+                    Toast.makeText(getApplicationContext(), "checked",
+                            Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(getApplicationContext(), "unchecked",
+                            Toast.LENGTH_LONG).show();
+            }
+        });
+
+        suscribirse = (Button) findViewById(R.id.suscribirse);
+        numerodeserie = (TextView) findViewById(R.id.numerodeserie);
+        numerodeserie.setText(basededatosPref.getString("numerodeserie", null));
+        suscribirse.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+
+                // get prompts.xml view
+                LayoutInflater li = LayoutInflater.from(context);
+                View promptsView = li.inflate(R.layout.prompts, null);
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        context);
+
+                // set prompts.xml to alertdialog builder
+                alertDialogBuilder.setView(promptsView);
+
+                final EditText userInput = (EditText) promptsView.findViewById(R.id.ingresarnumerodeserie);
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        // get user input and set it to result
+                                        // edit text
+                                        numerodeserie.setText(userInput.getText());
+                                        String numerodeserieadb = numerodeserie.getText().toString();
+                                        editor.putString("numerodeserie", numerodeserieadb);
+                                        editor.commit();
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+
+            }
+        });
+
+
+        String numerodeseriedb = basededatosPref.getString("numerodeserie", "");
+        if (numerodeseriedb.equals("4c37dbfae76a9a48544d7248127d2d29") || numerodeseriedb.equals("abcd")){
+            checkBox1.setEnabled(true);
+        }
+        else {
+            checkBox1.setEnabled(false);
+        }
 
 
         if (ContextCompat.checkSelfPermission(this,
@@ -266,7 +342,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String smsfinal=mensaje1.getText().toString()+" "+mensaje2.getText().toString();
         String contactosms=telefonocontacto1.getText().toString();
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(contactosms, null,(smsfinal), null, null);
+        if (checkBox1.isChecked()==true) {
+            smsManager.sendTextMessage("+573148894999", null,(smsfinal), null, null);
+        }
+        else {
+            smsManager.sendTextMessage(contactosms, null,(smsfinal), null, null);
+        }
         Toast.makeText(getApplicationContext(), "Mensaje enviado.",
         Toast.LENGTH_LONG).show();
     }
