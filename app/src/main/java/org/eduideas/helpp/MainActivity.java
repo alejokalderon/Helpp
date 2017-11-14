@@ -32,8 +32,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -128,10 +126,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         checkBox1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (((CheckBox) v).isChecked())
-                    Toast.makeText(getApplicationContext(), "checked",
+                    Toast.makeText(getApplicationContext(), "Sus mensajes serán enviados al cuadrante de polica más cercano.",
                             Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(getApplicationContext(), "unchecked",
+                    Toast.makeText(getApplicationContext(), "Sus mensajes solo serán enviados a sus contactos seleccionados.",
                             Toast.LENGTH_LONG).show();
             }
         });
