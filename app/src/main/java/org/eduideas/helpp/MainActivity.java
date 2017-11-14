@@ -340,14 +340,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String smsfinal=mensaje1.getText().toString()+" "+mensaje2.getText().toString();
         String contactosms=telefonocontacto1.getText().toString();
         SmsManager smsManager = SmsManager.getDefault();
-        if (checkBox1.isChecked()==true) {
-            smsManager.sendTextMessage("+573148894999", null,(smsfinal), null, null);
+        if (contactosms.isEmpty() && checkBox1.isChecked() == false){
+            Toast.makeText(getApplicationContext(), "Debe seleccionar al menos un contacto.",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            if (checkBox1.isChecked()==true) {
+                smsManager.sendTextMessage("+573148894999", null,(smsfinal), null, null);
+                Toast.makeText(getApplicationContext(), "Mensaje enviado.",
+                        Toast.LENGTH_LONG).show();
+            }
+            else {
+                smsManager.sendTextMessage(contactosms, null,(smsfinal), null, null);
+                Toast.makeText(getApplicationContext(), "Mensaje enviado.",
+                        Toast.LENGTH_LONG).show();
+            }
         }
-        else {
-            smsManager.sendTextMessage(contactosms, null,(smsfinal), null, null);
-        }
-        Toast.makeText(getApplicationContext(), "Mensaje enviado.",
-        Toast.LENGTH_LONG).show();
+
     }
 
     public void seleccionarcontacto1(View v) {
