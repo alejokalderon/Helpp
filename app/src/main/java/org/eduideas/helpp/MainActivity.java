@@ -104,6 +104,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mensaje1.setMovementMethod(LinkMovementMethod.getInstance());
         mensaje2 = (TextView) findViewById(R.id.direccion);
         mensaje2.setMovementMethod(LinkMovementMethod.getInstance());
+        String mensaje1adb = mensaje1.getText().toString();
+        editor.putString("mensaje1", mensaje1adb);
+        editor.commit();
+        String mensaje2adb = mensaje2.getText().toString();
+        editor.putString("mensaje2", mensaje2adb);
+        editor.commit();
+
 
         //Este es el ID del botón
         botonHelpp = (Button) findViewById(R.id.botonHelpp);
@@ -123,14 +130,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         checkBox1=(CheckBox)findViewById(R.id.checkBox1);
         checkBox1.setEnabled(false);
+        checkBox1.setChecked(basededatosPref.getBoolean("checked", false));
         checkBox1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (((CheckBox) v).isChecked())
+                if (((CheckBox) v).isChecked()) {
+                    editor.putBoolean("checked", true);
+                    editor.commit();
                     Toast.makeText(getApplicationContext(), "Sus mensajes serán enviados al cuadrante de polica más cercano.",
                             Toast.LENGTH_LONG).show();
-                else
+                }
+                else {
+                    editor.putBoolean("checked", false);
+                    editor.commit();
                     Toast.makeText(getApplicationContext(), "Sus mensajes solo serán enviados a sus contactos seleccionados.",
                             Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -189,6 +203,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else {
             checkBox1.setEnabled(false);
+            editor.putBoolean("checked", false);
+            editor.commit();
         }
 
 
@@ -240,6 +256,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mensaje1.setText("Actualizando ubicación...");
         mensaje2.setText(" ");
+
     }
 
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -262,6 +279,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Address DirCalle = list.get(0);
                     mensaje2.setText(" "
                             + DirCalle.getAddressLine(0));
+                    String direccion = mensaje2.getText().toString();
+                    editor.putString("mensaje2", direccion);
+                    editor.commit();
                 }
 
             } catch (IOException e) {
@@ -292,6 +312,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String Text = "Estoy en problemas, mi ubicacion actual es: " + "\n http://maps.google.com/maps?q="
                     + loc.getLatitude() + "," + loc.getLongitude();
             mensaje1.setText(Text);
+            editor.putString("mensaje1", Text);
+            editor.commit();
+
             this.mainActivity.setLocation(loc);
         }
 
@@ -337,10 +360,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void sendSMS() {
-        String smsfinal=mensaje1.getText().toString()+" "+mensaje2.getText().toString();
-        String contactosms=telefonocontacto1.getText().toString();
+        String mensaje1final=basededatosPref.getString("mensaje1", "DEFAULT");
+        String mensaje2final=basededatosPref.getString("mensaje2", "DEFAULT");
+        String smsfinal = mensaje1final + " " + mensaje2final;
+        String contacto1sms = telefonocontacto1.getText().toString();
+        String contacto2sms = telefonocontacto2.getText().toString();
+        String contacto3sms = telefonocontacto3.getText().toString();
+        String contacto4sms = telefonocontacto4.getText().toString();
+        String contacto5sms = telefonocontacto5.getText().toString();
+        String contactosms = telefonocontacto1.getText().toString();
+        String contactossms[] = {contacto1sms, contacto2sms, contacto3sms, contacto4sms, contacto5sms};
         SmsManager smsManager = SmsManager.getDefault();
-        if (contactosms.isEmpty() && checkBox1.isChecked() == false){
+        if (contacto1sms.isEmpty() && contacto2sms.isEmpty() && contacto3sms.isEmpty() && contacto4sms.isEmpty() &&contacto5sms.isEmpty() && checkBox1.isChecked() == false){
             Toast.makeText(getApplicationContext(), "Debe seleccionar al menos un contacto.",
                     Toast.LENGTH_LONG).show();
         } else {
@@ -350,13 +381,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.LENGTH_LONG).show();
             }
             else {
-                smsManager.sendTextMessage(contactosms, null,(smsfinal), null, null);
-                Toast.makeText(getApplicationContext(), "Mensaje enviado.",
-                        Toast.LENGTH_LONG).show();
+                if (contacto1sms.matches("") && contacto2sms.matches("") && contacto1sms.matches("")){
+                    smsManager.sendTextMessage(contacto5sms, null, (smsfinal), null, null);
+                    Toast.makeText(getApplicationContext(), "Mensaje enviado.",
+                            Toast.LENGTH_LONG).show();
+                }
+                else {
+                    for (String contactosfinal : contactossms) {
+                        smsManager.sendTextMessage(contactosfinal, null, (smsfinal), null, null);
+                    }
+                    Toast.makeText(getApplicationContext(), "Mensaje enviado.",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         }
 
     }
+
 
     public void seleccionarcontacto1(View v) {
          Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
