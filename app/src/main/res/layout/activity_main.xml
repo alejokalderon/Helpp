@@ -268,7 +268,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
-        android:text="Enviar aviso a cuadrante de policía más cercano"
+        android:text="Dar aviso a cuadrante de policía más cercano"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombrecontacto5" />
 
