@@ -438,7 +438,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.remove("dbtelefonocontacto1");
         editor.remove("dbnombrecontacto1");
         editor.commit();
-        nombrecontacto1.setText("");
+        nombrecontacto1.setText("Vacío");
         telefonocontacto1.setText("");
     }
 
@@ -446,7 +446,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.remove("dbtelefonocontacto2");
         editor.remove("dbnombrecontacto2");
         editor.commit();
-        nombrecontacto2.setText("");
+        nombrecontacto2.setText("Vacío");
         telefonocontacto2.setText("");
     }
 
@@ -454,7 +454,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.remove("dbtelefonocontacto3");
         editor.remove("dbnombrecontacto3");
         editor.commit();
-        nombrecontacto3.setText("");
+        nombrecontacto3.setText("Vacío");
         telefonocontacto3.setText("");
     }
 
@@ -462,7 +462,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.remove("dbtelefonocontacto4");
         editor.remove("dbnombrecontacto4");
         editor.commit();
-        nombrecontacto4.setText("");
+        nombrecontacto4.setText("Vacío");
         telefonocontacto4.setText("");
     }
 
@@ -470,7 +470,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.remove("dbtelefonocontacto5");
         editor.remove("dbnombrecontacto5");
         editor.commit();
-        nombrecontacto5.setText("");
+        nombrecontacto5.setText("Vacío");
         telefonocontacto5.setText("");
     }
 
