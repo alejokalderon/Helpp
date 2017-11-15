@@ -378,7 +378,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         contactossms = list.toArray(new String[list.size()]);
 
-        String mensajeacontactos = mensaje1final + " " + mensaje2final;
+        //String mensajeacontactos = mensaje1final + " " + mensaje2final;
+        String mensajeacontactos1 = mensaje1final;
+        String mensajeacontactos2 = mensaje2final;
         SmsManager smsManager = SmsManager.getDefault();
 
         if (contacto1sms.isEmpty() && contacto2sms.isEmpty() && contacto3sms.isEmpty() && contacto4sms.isEmpty() &&contacto5sms.isEmpty() && checkBox1.isChecked() == false){
@@ -386,16 +388,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         } else {
             if (checkBox1.isChecked()==true) {
-                for (String contactosfinal : contactossms) {
-                    smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos), null, null);
-                    smsManager.sendTextMessage("+573148894999", null, (mensajeacontactos+ " " +contactosfinal), null, null);
+                if (contacto1sms.isEmpty() && contacto3sms.isEmpty() && contacto3sms.isEmpty() && contacto4sms.isEmpty() && contacto5sms.isEmpty()) {
+                    smsManager.sendTextMessage("+573148894999", null, (mensajeacontactos1), null, null);
+                    smsManager.sendTextMessage("+573148894999", null, (mensajeacontactos2), null, null);
+                    Toast.makeText(getApplicationContext(), "El mensaje solo fue enviado al cuadrante.", Toast.LENGTH_LONG).show();
                 }
-                Toast.makeText(getApplicationContext(), "Mensaje enviado.", Toast.LENGTH_LONG).show();
+                else {
+                    for (String contactosfinal : contactossms) {
+                    smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos1), null, null);
+                    smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos1), null, null);
+                    smsManager.sendTextMessage("+573148894999", null, (mensajeacontactos1), null, null);
+                    smsManager.sendTextMessage("+573148894999", null, (mensajeacontactos2), null, null);
+                    smsManager.sendTextMessage("+573148894999", null, (contactosfinal), null, null);
+                    Toast.makeText(getApplicationContext(), "El mensaje fue enviado al cuadrante y a su red de contactos.", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
             else {
                 for (String contactosfinal : contactossms) {
-                    smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos), null, null);
-                    }
+                    smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos1), null, null);
+                    smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos2), null, null);
+
+                }
                     Toast.makeText(getApplicationContext(), "Mensaje enviado.", Toast.LENGTH_LONG).show();
             }
         }
