@@ -31,8 +31,8 @@ import android.widget.Toast;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
-
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -83,23 +83,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         nombrecontacto1 = (TextView) findViewById(R.id.nombrecontacto1);
         telefonocontacto1 = (TextView) findViewById(R.id.telefonocontacto1);
         telefonocontacto1.setText(basededatosPref.getString("dbtelefonocontacto1", null));
-        nombrecontacto1.setText(basededatosPref.getString("dbnombrecontacto1", null));
+        nombrecontacto1.setText(basededatosPref.getString("dbnombrecontacto1", "Vacío"));
         nombrecontacto2 = (TextView) findViewById(R.id.nombrecontacto2);
         telefonocontacto2 = (TextView) findViewById(R.id.telefonocontacto2);
         telefonocontacto2.setText(basededatosPref.getString("dbtelefonocontacto2", null));
-        nombrecontacto2.setText(basededatosPref.getString("dbnombrecontacto2", null));
+        nombrecontacto2.setText(basededatosPref.getString("dbnombrecontacto2", "Vacío"));
         nombrecontacto3 = (TextView) findViewById(R.id.nombrecontacto3);
         telefonocontacto3 = (TextView) findViewById(R.id.telefonocontacto3);
         telefonocontacto3.setText(basededatosPref.getString("dbtelefonocontacto3", null));
-        nombrecontacto3.setText(basededatosPref.getString("dbnombrecontacto3", null));
+        nombrecontacto3.setText(basededatosPref.getString("dbnombrecontacto3", "Vacío"));
         nombrecontacto4 = (TextView) findViewById(R.id.nombrecontacto4);
         telefonocontacto4 = (TextView) findViewById(R.id.telefonocontacto4);
         telefonocontacto4.setText(basededatosPref.getString("dbtelefonocontacto4", null));
-        nombrecontacto4.setText(basededatosPref.getString("dbnombrecontacto4", null));
+        nombrecontacto4.setText(basededatosPref.getString("dbnombrecontacto4", "Vacío"));
         nombrecontacto5 = (TextView) findViewById(R.id.nombrecontacto5);
         telefonocontacto5 = (TextView) findViewById(R.id.telefonocontacto5);
         telefonocontacto5.setText(basededatosPref.getString("dbtelefonocontacto5", null));
-        nombrecontacto5.setText(basededatosPref.getString("dbnombrecontacto5", null));
+        nombrecontacto5.setText(basededatosPref.getString("dbnombrecontacto5", "Vacío"));
         mensaje1 = (TextView) findViewById(R.id.coordenadas);
         mensaje1.setMovementMethod(LinkMovementMethod.getInstance());
         mensaje2 = (TextView) findViewById(R.id.direccion);
@@ -111,10 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putString("mensaje2", mensaje2adb);
         editor.commit();
 
-
-        //Este es el ID del botón
         botonHelpp = (Button) findViewById(R.id.botonHelpp);
-        //Este es el que permite que el botón ejecute
         botonHelpp.setOnClickListener(this);
 
         seleccionarcontacto1 = (Button) findViewById(R.id.seleccionarcontacto1);
@@ -154,22 +151,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         suscribirse.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
 
-                // get prompts.xml view
+                // Obtener el archivo prompts.xml
                 LayoutInflater li = LayoutInflater.from(context);
                 View promptsView = li.inflate(R.layout.prompts, null);
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         context);
 
-                // set prompts.xml to alertdialog builder
+                // Definir el archivo prompts.xml como alertdialog
                 alertDialogBuilder.setView(promptsView);
 
                 final EditText userInput = (EditText) promptsView.findViewById(R.id.ingresarnumerodeserie);
 
-                // set dialog message
+                // Definir el mensaje del alertdialog para el número de serie
                 alertDialogBuilder
                         .setCancelable(false)
-                        .setPositiveButton("OK",
+                        .setPositiveButton("INGRESAR",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,int id) {
                                         // get user input and set it to result
@@ -178,28 +175,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         String numerodeserieadb = numerodeserie.getText().toString();
                                         editor.putString("numerodeserie", numerodeserieadb);
                                         editor.commit();
+                                        recreate();
                                     }
                                 })
-                        .setNegativeButton("Cancel",
+                        .setNegativeButton("CANCELAR",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,int id) {
                                         dialog.cancel();
                                     }
                                 });
 
-                // create alert dialog
+                // crear alertdialog
                 AlertDialog alertDialog = alertDialogBuilder.create();
 
-                // show it
+                // mostrar el alertdialog
                 alertDialog.show();
 
             }
         });
 
 
+        //Almacenamos los posibles números de serie, esto debería ir en otro archivo en el futuro
         String numerodeseriedb = basededatosPref.getString("numerodeserie", "");
         if (numerodeseriedb.equals("4c37dbfae76a9a48544d7248127d2d29") || numerodeseriedb.equals("abcd")){
             checkBox1.setEnabled(true);
+         //   suscribirse.setVisibility(View.GONE);
+
         }
         else {
             checkBox1.setEnabled(false);
@@ -207,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.commit();
         }
 
-
+        //Comprobamos los permisos de envío de SMS
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -223,6 +224,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
+        //Comprobamos los permisos de GPS
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
@@ -268,8 +270,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //Obtenemos la direccion de la calle a partir de la latitud y la longitud
     public void setLocation(Location loc) {
-        //Obtener la direccion de la calle a partir de la latitud y la longitud
         if (loc.getLatitude() != 0.0 && loc.getLongitude() != 0.0) {
             try {
                 Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -351,7 +353,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.botonHelpp:
                 sendSMS();
-                //  Toast.makeText(getApplicationContext(), "Holi", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -362,37 +363,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void sendSMS() {
         String mensaje1final=basededatosPref.getString("mensaje1", "DEFAULT");
         String mensaje2final=basededatosPref.getString("mensaje2", "DEFAULT");
-        String smsfinal = mensaje1final + " " + mensaje2final;
         String contacto1sms = telefonocontacto1.getText().toString();
         String contacto2sms = telefonocontacto2.getText().toString();
         String contacto3sms = telefonocontacto3.getText().toString();
         String contacto4sms = telefonocontacto4.getText().toString();
         String contacto5sms = telefonocontacto5.getText().toString();
-        String contactosms = telefonocontacto1.getText().toString();
+
         String contactossms[] = {contacto1sms, contacto2sms, contacto3sms, contacto4sms, contacto5sms};
+        List<String> list = new ArrayList<String>();
+        for(String s : contactossms) {
+            if(s != null && s.length() > 0) {
+                list.add(s);
+            }
+        }
+        contactossms = list.toArray(new String[list.size()]);
+
+        String mensajeacontactos = mensaje1final + " " + mensaje2final;
         SmsManager smsManager = SmsManager.getDefault();
+
         if (contacto1sms.isEmpty() && contacto2sms.isEmpty() && contacto3sms.isEmpty() && contacto4sms.isEmpty() &&contacto5sms.isEmpty() && checkBox1.isChecked() == false){
-            Toast.makeText(getApplicationContext(), "Debe seleccionar al menos un contacto.",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Debe seleccionar al menos un contacto.", Toast.LENGTH_LONG).show();
+
         } else {
             if (checkBox1.isChecked()==true) {
-                smsManager.sendTextMessage("+573148894999", null,(smsfinal), null, null);
-                Toast.makeText(getApplicationContext(), "Mensaje enviado.",
-                        Toast.LENGTH_LONG).show();
+                for (String contactosfinal : contactossms) {
+                    smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos), null, null);
+                    smsManager.sendTextMessage("+573148894999", null, (mensajeacontactos+ " " +contactosfinal), null, null);
+                }
+                Toast.makeText(getApplicationContext(), "Mensaje enviado.", Toast.LENGTH_LONG).show();
             }
             else {
-                if (contacto1sms.matches("") && contacto2sms.matches("") && contacto1sms.matches("")){
-                    smsManager.sendTextMessage(contacto5sms, null, (smsfinal), null, null);
-                    Toast.makeText(getApplicationContext(), "Mensaje enviado.",
-                            Toast.LENGTH_LONG).show();
-                }
-                else {
-                    for (String contactosfinal : contactossms) {
-                        smsManager.sendTextMessage(contactosfinal, null, (smsfinal), null, null);
+                for (String contactosfinal : contactossms) {
+                    smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos), null, null);
                     }
-                    Toast.makeText(getApplicationContext(), "Mensaje enviado.",
-                            Toast.LENGTH_LONG).show();
-                }
+                    Toast.makeText(getApplicationContext(), "Mensaje enviado.", Toast.LENGTH_LONG).show();
             }
         }
 

@@ -23,11 +23,17 @@
     </EditText>
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrarse en Helpp le permitirá notificar sus emergencias al cuadrante de policía más cercano a su ubicación."
+        android:textAlignment="center" />
+
+    <TextView
         android:id="@+id/adquieraserial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoLink="web"
-        android:text="Si no posee un número de serie por favor dirijase a http://www.eduideas.org/getserial para adquirir uno."
+        android:text="Si desea adquirir un número de serie por favor dirijase a http://www.eduideas.org/getserial para conocer nuestros planes."
         android:textAlignment="center" />
 
 </LinearLayout>
