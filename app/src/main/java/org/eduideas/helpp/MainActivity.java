@@ -22,6 +22,8 @@ import android.telephony.SmsManager;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences.Editor editor;
 
     public static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 99;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -388,7 +391,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         } else {
             if (checkBox1.isChecked()==true) {
-                if (contacto1sms.isEmpty() && contacto3sms.isEmpty() && contacto3sms.isEmpty() && contacto4sms.isEmpty() && contacto5sms.isEmpty()) {
+                if (contacto1sms.isEmpty() && contacto2sms.isEmpty() && contacto3sms.isEmpty() && contacto4sms.isEmpty() && contacto5sms.isEmpty()) {
                     smsManager.sendTextMessage("+573148894999", null, (mensajeacontactos1), null, null);
                     smsManager.sendTextMessage("+573148894999", null, (mensajeacontactos2), null, null);
                     Toast.makeText(getApplicationContext(), "El mensaje solo fue enviado al cuadrante.", Toast.LENGTH_LONG).show();
@@ -396,7 +399,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else {
                     for (String contactosfinal : contactossms) {
                     smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos1), null, null);
-                    smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos1), null, null);
+                    smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos2), null, null);
                     smsManager.sendTextMessage("+573148894999", null, (mensajeacontactos1), null, null);
                     smsManager.sendTextMessage("+573148894999", null, (mensajeacontactos2), null, null);
                     smsManager.sendTextMessage("+573148894999", null, (contactosfinal), null, null);
@@ -408,7 +411,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 for (String contactosfinal : contactossms) {
                     smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos1), null, null);
                     smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos2), null, null);
-
                 }
                     Toast.makeText(getApplicationContext(), "Mensaje enviado.", Toast.LENGTH_LONG).show();
             }
@@ -508,6 +510,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
                         contactNumber = cursor.getString(phoneIndex);
                         contactNumber = contactNumber.replaceAll("[ )(-]","");
+                        if (contactNumber.startsWith("+57")){
+                            contactNumber = contactNumber.substring(3);
+                        }
                         contactName = cursor.getString(nameIndex);
                         editor.putString("dbtelefonocontacto1", contactNumber); // Storing string
                         editor.putString("dbnombrecontacto1", contactName); // Storing string
@@ -532,6 +537,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
                     contactNumber = cursor.getString(phoneIndex);
                     contactNumber = contactNumber.replaceAll("[ )(-]","");
+                    if (contactNumber.startsWith("+57")){
+                        contactNumber = contactNumber.substring(3);
+                    }
                     contactName = cursor.getString(nameIndex);
                     editor.putString("dbtelefonocontacto2", contactNumber); // Storing string
                     editor.putString("dbnombrecontacto2", contactName); // Storing string
@@ -556,6 +564,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
                         contactNumber = cursor.getString(phoneIndex);
                         contactNumber = contactNumber.replaceAll("[ )(-]","");
+                        if (contactNumber.startsWith("+57")){
+                            contactNumber = contactNumber.substring(3);
+                        }
                         contactName = cursor.getString(nameIndex);
                         editor.putString("dbtelefonocontacto3", contactNumber); // Storing string
                         editor.putString("dbnombrecontacto3", contactName); // Storing string
@@ -580,6 +591,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
                         contactNumber = cursor.getString(phoneIndex);
                         contactNumber = contactNumber.replaceAll("[ )(-]","");
+                        if (contactNumber.startsWith("+57")){
+                            contactNumber = contactNumber.substring(3);
+                        }
                         contactName = cursor.getString(nameIndex);
                         editor.putString("dbtelefonocontacto4", contactNumber); // Storing string
                         editor.putString("dbnombrecontacto4", contactName); // Storing string
@@ -604,6 +618,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
                         contactNumber = cursor.getString(phoneIndex);
                         contactNumber = contactNumber.replaceAll("[ )(-]","");
+                        if (contactNumber.startsWith("+57")){
+                            contactNumber = contactNumber.substring(3);
+                        }
                         contactName = cursor.getString(nameIndex);
                         editor.putString("dbtelefonocontacto5", contactNumber); // Storing string
                         editor.putString("dbnombrecontacto5", contactName); // Storing string
