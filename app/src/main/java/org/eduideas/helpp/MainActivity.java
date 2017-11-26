@@ -37,8 +37,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import android.view.View.OnClickListener;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+
+    private AdView mAdView;
+
     private static final int llamarcontacto1 = 1001;
     private static final int llamarcontacto2 = 1002;
     private static final int llamarcontacto3 = 1003;
@@ -46,9 +56,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int llamarcontacto5 = 1005;
     private CheckBox checkBox1;
     final Context context = this;
-    private Button suscribirse;
+//    private Button suscribirse;
     private TextView numerodeserie;
-
 
     TextView nombrecontacto1, telefonocontacto1;
     TextView nombrecontacto2, telefonocontacto2;
@@ -72,14 +81,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences basededatosPref;
     SharedPreferences.Editor editor;
 
-    public static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 99;
+ //   public static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 99;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
+        MobileAds.initialize(this, "ca-app-pub-5205102388431020~5815623680");
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         basededatosPref = getApplicationContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
         editor = basededatosPref.edit();
 
@@ -147,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
-
+/*
         suscribirse = (Button) findViewById(R.id.suscribirse);
         numerodeserie = (TextView) findViewById(R.id.numerodeserie);
         numerodeserie.setText(basededatosPref.getString("numerodeserie", null));
@@ -210,24 +225,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.putBoolean("checked", false);
             editor.commit();
         }
-
-        //Comprobamos los permisos de envío de SMS
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.SEND_SMS)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.SEND_SMS)) {
-            } else {
-                // permission is already granted
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.SEND_SMS},
-                        MY_PERMISSIONS_REQUEST_SEND_SMS);
-            }
-        } else {
-
-        }
-
-        //Comprobamos los permisos de GPS
+*/
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
@@ -249,6 +247,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(settingsIntent);
         }
+        /*
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -256,6 +255,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
             return;
         }
+        */
         mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener) Local);
         mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) Local);
 
@@ -314,7 +314,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             loc.getLatitude();
             loc.getLongitude();
 
-            String Text = "Estoy en problemas, mi ubicacion actual es: " + "\n http://maps.google.com/maps?q="
+            String Text = "Estoy en problemas, mi ubicación actual es: " + "\n http://maps.google.com/maps?q="
                     + loc.getLatitude() + "," + loc.getLongitude();
             mensaje1.setText(Text);
             editor.putString("mensaje1", Text);
@@ -355,7 +355,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.botonHelpp:
-                sendSMS();
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.SEND_SMS)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.SEND_SMS)) {
+                    } else {
+                        // permission is already granted
+                        ActivityCompat.requestPermissions(this,
+                                new String[]{Manifest.permission.SEND_SMS},
+                                99);
+                    }
+                } else {
+                    sendSMS();
+                }
                 break;
             default:
                 break;
@@ -634,6 +647,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         }
     }
-
 }
 

@@ -6,32 +6,46 @@
     android:layout_height="match_parent"
     tools:context="org.eduideas.helpp.MainActivity">
 
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-5205102388431020/3579099319"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toTopOf="parent"></com.google.android.gms.ads.AdView>
+
+
     <TextView
         android:id="@+id/coordenadas"
         android:layout_width="298dp"
         android:layout_height="50dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="80dp"
         android:autoLink="web"
         android:gravity="center"
-        android:text="TextView"
+        android:text="Cargando ubicación..."
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/direccion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/direccion"
-        android:layout_width="301dp"
-        android:layout_height="50dp"
+        android:layout_width="299dp"
+        android:layout_height="37dp"
         android:layout_marginBottom="304dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:autoLink="web"
         android:gravity="center"
-        android:text="TextView"
+        android:text="Cargando dirección..."
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/botonHelpp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,15 +57,12 @@
         android:id="@+id/botonHelpp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginStart="148dp"
+        android:layout_marginEnd="135dp"
+        android:layout_marginTop="4dp"
         android:onClick="botonHelpp"
         android:text="@string/helpp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBox1" />
 
     <Button
         android:id="@+id/seleccionarcontacto1"
@@ -266,30 +277,9 @@
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dar aviso a cuadrante de policía más cercano"
+        android:text="Dar aviso a cuadrante de policía más cercano (premium)"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombrecontacto5" />
-
-    <Button
-        android:id="@+id/suscribirse"
-        android:layout_width="79dp"
-        android:layout_height="29dp"
-        android:layout_marginBottom="1dp"
-        android:layout_marginStart="30dp"
-        android:text="Suscribirse"
-        android:textSize="8sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/numerodeserie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="3dp"
-        android:text="Número de Serie"
-        android:textSize="8sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -318,10 +308,10 @@
     <TextView
         android:id="@+id/textView4"
         android:layout_width="298dp"
-        android:layout_height="wrap_content"
+        android:layout_height="29dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="60dp"
         android:text="Mensaje por defecto"
         android:textAlignment="center"
         android:textSize="18sp"
@@ -360,20 +350,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="33dp"
-        android:layout_height="31dp"
-        android:text="-"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="52dp" />
+    <TextView
+        android:id="@+id/numerodeserie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:text="www.eduideas.org"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="33dp"
-        android:layout_height="30dp"
-        android:text="+"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="110dp" />
+
 
 </android.support.constraint.ConstraintLayout>
