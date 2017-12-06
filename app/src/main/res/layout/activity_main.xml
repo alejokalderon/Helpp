@@ -12,274 +12,69 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="2dp"
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-5205102388431020/3579099319"
+        ads:layout_constraintBottom_toTopOf="@+id/titulo"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintTop_toTopOf="parent"></com.google.android.gms.ads.AdView>
 
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="4dp"
+        android:text="Mensaje por defecto"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adView" />
+
+    <TextView
+        android:id="@+id/mensajedealerta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Estoy en problemas, mi ubicación actual es:"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titulo" />
 
     <TextView
         android:id="@+id/coordenadas"
-        android:layout_width="298dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:autoLink="web"
         android:gravity="center"
-        android:text="Cargando ubicación..."
+        android:text="Actualizando ubicación..."
         android:textAlignment="center"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/direccion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@+id/mensajedealerta" />
 
     <TextView
         android:id="@+id/direccion"
-        android:layout_width="299dp"
-        android:layout_height="37dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="304dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:autoLink="web"
         android:gravity="center"
-        android:text="Cargando dirección..."
         android:textAlignment="center"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/botonHelpp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/coordenadas" />
-
-    <Button
-        android:id="@+id/botonHelpp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="135dp"
-        android:layout_marginTop="4dp"
-        android:onClick="botonHelpp"
-        android:text="@string/helpp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox1" />
-
-    <Button
-        android:id="@+id/seleccionarcontacto1"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="51dp"
-        android:onClick="seleccionarcontacto1"
-        android:text="+"
-        app:layout_constraintEnd_toStartOf="@+id/borrar1"
-        app:layout_constraintTop_toBottomOf="@+id/direccion" />
-
-    <TextView
-        android:id="@+id/nombrecontacto1"
-        android:layout_width="140dp"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="51dp"
-        android:text="Contacto 1"
-        android:textAlignment="viewStart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/direccion" />
-
-    <TextView
-        android:id="@+id/telefonocontacto1"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="51dp"
-        android:gravity="center"
-        android:text="Vacío"
-        android:textAlignment="viewStart"
-        app:layout_constraintStart_toEndOf="@+id/nombrecontacto1"
-        app:layout_constraintTop_toBottomOf="@+id/direccion" />
-
-    <TextView
-        android:id="@+id/nombrecontacto2"
-        android:layout_width="140dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:gravity="center"
-        android:text="Contacto 2"
-        android:textAlignment="viewStart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombrecontacto1" />
-
-    <TextView
-        android:id="@+id/telefonocontacto2"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:gravity="center"
-        android:text="Vacío"
-        android:textAlignment="viewStart"
-        app:layout_constraintStart_toEndOf="@+id/nombrecontacto2"
-        app:layout_constraintTop_toBottomOf="@+id/telefonocontacto1" />
-
-    <TextView
-        android:id="@+id/nombrecontacto3"
-        android:layout_width="140dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:gravity="center"
-        android:text="Contacto 3"
-        android:textAlignment="viewStart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombrecontacto2" />
-
-    <TextView
-        android:id="@+id/telefonocontacto3"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:gravity="center"
-        android:text="Vacío"
-        android:textAlignment="viewStart"
-        app:layout_constraintStart_toEndOf="@+id/nombrecontacto3"
-        app:layout_constraintTop_toBottomOf="@+id/telefonocontacto2" />
-
-    <TextView
-        android:id="@+id/nombrecontacto5"
-        android:layout_width="140dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:gravity="center"
-        android:text="Contacto 5"
-        android:textAlignment="viewStart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombrecontacto4" />
-
-    <TextView
-        android:id="@+id/telefonocontacto5"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:gravity="center"
-        android:text="Vacío"
-        android:textAlignment="viewStart"
-        app:layout_constraintStart_toEndOf="@+id/nombrecontacto5"
-        app:layout_constraintTop_toBottomOf="@+id/telefonocontacto4" />
-
-    <TextView
-        android:id="@+id/nombrecontacto4"
-        android:layout_width="140dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:gravity="center"
-        android:text="Contacto 4"
-        android:textAlignment="viewStart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombrecontacto3" />
-
-    <TextView
-        android:id="@+id/telefonocontacto4"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:gravity="center"
-        android:text="Vacío"
-        android:textAlignment="viewStart"
-        app:layout_constraintStart_toEndOf="@+id/nombrecontacto4"
-        app:layout_constraintTop_toBottomOf="@+id/telefonocontacto3" />
-
-    <Button
-        android:id="@+id/seleccionarcontacto2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:onClick="seleccionarcontacto2"
-        android:text="+"
-        app:layout_constraintEnd_toStartOf="@+id/borrar2"
-        app:layout_constraintTop_toBottomOf="@+id/seleccionarcontacto1" />
-
-    <Button
-        android:id="@+id/seleccionarcontacto3"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:onClick="seleccionarcontacto3"
-        android:text="+"
-        app:layout_constraintEnd_toStartOf="@+id/borrar3"
-        app:layout_constraintTop_toBottomOf="@+id/seleccionarcontacto2" />
-
-    <Button
-        android:id="@+id/seleccionarcontacto4"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:onClick="seleccionarcontacto4"
-        android:text="+"
-        app:layout_constraintEnd_toStartOf="@+id/borrar4"
-        app:layout_constraintTop_toBottomOf="@+id/seleccionarcontacto3" />
-
-    <Button
-        android:id="@+id/seleccionarcontacto5"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:onClick="seleccionarcontacto5"
-        android:text="+"
-        app:layout_constraintEnd_toStartOf="@+id/borrar5"
-        app:layout_constraintTop_toBottomOf="@+id/seleccionarcontacto4" />
-
-    <Button
-        android:id="@+id/borrar1"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="51dp"
-        android:onClick="borrarcontacto1"
-        android:text="-"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/direccion" />
-
-    <Button
-        android:id="@+id/borrar2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="20dp"
-        android:onClick="borrarcontacto2"
-        android:text="-"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/borrar1" />
-
-    <Button
-        android:id="@+id/borrar3"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="20dp"
-        android:onClick="borrarcontacto3"
-        android:text="-"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/borrar2" />
-
-    <Button
-        android:id="@+id/borrar4"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="20dp"
-        android:onClick="borrarcontacto4"
-        android:text="-"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/borrar3" />
-
-    <Button
-        android:id="@+id/borrar5"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="20dp"
-        android:onClick="borrarcontacto5"
-        android:text="-"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/borrar4" />
-
-    <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dar aviso a cuadrante de policía más cercano (premium)"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombrecontacto5" />
 
     <TextView
         android:id="@+id/textView"
@@ -306,19 +101,256 @@
         app:layout_constraintTop_toBottomOf="@+id/direccion" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="298dp"
-        android:layout_height="29dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="60dp"
-        android:text="Mensaje por defecto"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/nombrecontacto1"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="51dp"
+        android:text="Contacto 1"
+        android:textAlignment="viewStart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/direccion" />
+
+    <TextView
+        android:id="@+id/telefonocontacto1"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="51dp"
+        android:gravity="center"
+        android:text="Vacío"
+        android:textAlignment="viewStart"
+        app:layout_constraintStart_toEndOf="@+id/nombrecontacto1"
+        app:layout_constraintTop_toBottomOf="@+id/direccion" />
+
+    <Button
+        android:id="@+id/seleccionarcontacto1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="51dp"
+        android:onClick="seleccionarcontacto1"
+        android:text="+"
+        app:layout_constraintEnd_toStartOf="@+id/borrar1"
+        app:layout_constraintTop_toBottomOf="@+id/direccion" />
+
+    <Button
+        android:id="@+id/borrar1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="51dp"
+        android:onClick="borrarcontacto1"
+        android:text="-"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/direccion" />
+
+    <TextView
+        android:id="@+id/nombrecontacto2"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:text="Contacto 2"
+        android:textAlignment="viewStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombrecontacto1" />
+
+    <TextView
+        android:id="@+id/telefonocontacto2"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        android:text="Vacío"
+        android:textAlignment="viewStart"
+        app:layout_constraintStart_toEndOf="@+id/nombrecontacto2"
+        app:layout_constraintTop_toBottomOf="@+id/telefonocontacto1" />
+
+    <Button
+        android:id="@+id/seleccionarcontacto2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:onClick="seleccionarcontacto2"
+        android:text="+"
+        app:layout_constraintEnd_toStartOf="@+id/borrar2"
+        app:layout_constraintTop_toBottomOf="@+id/seleccionarcontacto1" />
+
+    <Button
+        android:id="@+id/borrar2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:onClick="borrarcontacto2"
+        android:text="-"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/borrar1" />
+
+    <TextView
+        android:id="@+id/nombrecontacto3"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:text="Contacto 3"
+        android:textAlignment="viewStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombrecontacto2" />
+
+    <TextView
+        android:id="@+id/telefonocontacto3"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        android:text="Vacío"
+        android:textAlignment="viewStart"
+        app:layout_constraintStart_toEndOf="@+id/nombrecontacto3"
+        app:layout_constraintTop_toBottomOf="@+id/telefonocontacto2" />
+
+    <Button
+        android:id="@+id/seleccionarcontacto3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:onClick="seleccionarcontacto3"
+        android:text="+"
+        app:layout_constraintEnd_toStartOf="@+id/borrar3"
+        app:layout_constraintTop_toBottomOf="@+id/seleccionarcontacto2" />
+
+    <Button
+        android:id="@+id/borrar3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:onClick="borrarcontacto3"
+        android:text="-"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/borrar2" />
+
+    <TextView
+        android:id="@+id/nombrecontacto4"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:text="Contacto 4"
+        android:textAlignment="viewStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombrecontacto3" />
+
+    <TextView
+        android:id="@+id/telefonocontacto4"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        android:text="Vacío"
+        android:textAlignment="viewStart"
+        app:layout_constraintStart_toEndOf="@+id/nombrecontacto4"
+        app:layout_constraintTop_toBottomOf="@+id/telefonocontacto3" />
+
+    <Button
+        android:id="@+id/seleccionarcontacto4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:onClick="seleccionarcontacto4"
+        android:text="+"
+        app:layout_constraintEnd_toStartOf="@+id/borrar4"
+        app:layout_constraintTop_toBottomOf="@+id/seleccionarcontacto3" />
+
+    <Button
+        android:id="@+id/borrar4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:onClick="borrarcontacto4"
+        android:text="-"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/borrar3" />
+
+    <TextView
+        android:id="@+id/nombrecontacto5"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:text="Contacto 5"
+        android:textAlignment="viewStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombrecontacto4" />
+
+    <TextView
+        android:id="@+id/telefonocontacto5"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        android:text="Vacío"
+        android:textAlignment="viewStart"
+        app:layout_constraintStart_toEndOf="@+id/nombrecontacto5"
+        app:layout_constraintTop_toBottomOf="@+id/telefonocontacto4" />
+
+    <Button
+        android:id="@+id/seleccionarcontacto5"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:onClick="seleccionarcontacto5"
+        android:text="+"
+        app:layout_constraintEnd_toStartOf="@+id/borrar5"
+        app:layout_constraintTop_toBottomOf="@+id/seleccionarcontacto4" />
+
+    <Button
+        android:id="@+id/borrar5"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="20dp"
+        android:onClick="borrarcontacto5"
+        android:text="-"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/borrar4" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dar aviso a cuadrante de policía más cercano"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombrecontacto5" />
+
+    <Button
+        android:id="@+id/botonHelpp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginStart="148dp"
+        android:onClick="botonHelpp"
+        android:text="@string/helpp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/suscribirse"
+        android:layout_width="79dp"
+        android:layout_height="29dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginStart="30dp"
+        android:text="Suscribirse"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/numerodeserie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:text="Número de Serie"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -349,17 +381,5 @@
         android:textSize="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/numerodeserie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="3dp"
-        android:text="www.eduideas.org"
-        android:textSize="8sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
 
 </android.support.constraint.ConstraintLayout>

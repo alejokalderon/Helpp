@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView nombrecontacto4, telefonocontacto4;
     TextView nombrecontacto5, telefonocontacto5;
 
+    TextView mensaje0;
     TextView mensaje1;
     TextView mensaje2;
     Button botonHelpp;
@@ -118,10 +119,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         telefonocontacto5 = (TextView) findViewById(R.id.telefonocontacto5);
         telefonocontacto5.setText(basededatosPref.getString("dbtelefonocontacto5", null));
         nombrecontacto5.setText(basededatosPref.getString("dbnombrecontacto5", "Vacío"));
+        mensaje0 = (TextView) findViewById(R.id.mensajedealerta);
+        mensaje0.setMovementMethod(LinkMovementMethod.getInstance());
         mensaje1 = (TextView) findViewById(R.id.coordenadas);
         mensaje1.setMovementMethod(LinkMovementMethod.getInstance());
         mensaje2 = (TextView) findViewById(R.id.direccion);
         mensaje2.setMovementMethod(LinkMovementMethod.getInstance());
+        String mensaje0adb = mensaje0.getText().toString();
+        editor.putString("mensaje0", mensaje0adb);
+        editor.commit();
         String mensaje1adb = mensaje1.getText().toString();
         editor.putString("mensaje1", mensaje1adb);
         editor.commit();
@@ -259,6 +265,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener) Local);
         mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) Local);
 
+        mensaje0.setText("Estoy en problemas, mi ubicación actual es:");
         mensaje1.setText("Actualizando ubicación...");
         mensaje2.setText(" ");
 
@@ -314,9 +321,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             loc.getLatitude();
             loc.getLongitude();
 
-            String Text = "Estoy en problemas, mi ubicación actual es: " + "\n http://maps.google.com/maps?q="
+            String Alerta = "Estoy en problemas, mi ubicación actual es:";
+            String Text = "http://maps.google.com/maps?q="
                     + loc.getLatitude() + "," + loc.getLongitude();
+            mensaje0.setText(Alerta);
             mensaje1.setText(Text);
+            editor.putString("mensaje0", Alerta);
             editor.putString("mensaje1", Text);
             editor.commit();
 
@@ -377,6 +387,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void sendSMS() {
+        String mensaje0final=basededatosPref.getString("mensaje0", "DEFAULT");
         String mensaje1final=basededatosPref.getString("mensaje1", "DEFAULT");
         String mensaje2final=basededatosPref.getString("mensaje2", "DEFAULT");
         String contacto1sms = telefonocontacto1.getText().toString();
@@ -395,6 +406,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contactossms = list.toArray(new String[list.size()]);
 
         //String mensajeacontactos = mensaje1final + " " + mensaje2final;
+        String mensajeacontactos0 = mensaje0final;
         String mensajeacontactos1 = mensaje1final;
         String mensajeacontactos2 = mensaje2final;
         SmsManager smsManager = SmsManager.getDefault();
@@ -422,6 +434,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             else {
                 for (String contactosfinal : contactossms) {
+                    smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos0), null, null);
                     smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos1), null, null);
                     smsManager.sendTextMessage(contactosfinal, null, (mensajeacontactos2), null, null);
                 }
